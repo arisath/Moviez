@@ -7,8 +7,12 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        System.out.println(Moviez.getMovieJson("Reservoir Dogs"));
-
+        System.out.println(Tools.getMovieJson("The Matrix"));
+        System.out.println(Tools.getMovieJson("Fightclub"));
+        System.out.println(Tools.getMovieJson("Desperado"));
+        System.out.println(Tools.getMovieJson("Django Unchained"));
+        System.out.println(Tools.getMovieJson("Transformers"));
+        System.out.println(Tools.getMovieJson("The Prestige"));
     }
 
 }

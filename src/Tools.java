@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class Moviez
+public class Tools
 {
     static final String omdbapi = "http://www.omdbapi.com/?t=";
 
