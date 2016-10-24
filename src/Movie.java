@@ -1,36 +1,167 @@
+import javax.json.JsonObject;
 import java.util.ArrayList;
 
 public class Movie
 {
+    private String releaseDate;
+
+    private int runtime;
+
+    private ArrayList<String> genre;
+
+    private ArrayList<String> director;
+
+    private ArrayList<String> writer;
+
+    private ArrayList<String> mainActors;
+
+    private ArrayList<String> languages;
+
+    private ArrayList<String> countries;
+
+    private ArrayList<String> oscars;
+
+    private int metascore;
+
+    private int imdbRating;
+
+    private int imdbVotes;
+
+    private String type;
+
     private String title;
 
     private int year;
 
     private String rated;
 
-    private String releaseDate;
+    protected String getTitle()
+    {
+        return title;
+    }
 
-    private int runtime;
+    protected void setTitle(String title)
+    {
+        this.title = title;
+    }
 
-    ArrayList<String> genre;
+    protected int getYear()
+    {
+        return year;
+    }
 
-    ArrayList<String> director;
+    protected void setYear(int year)
+    {
+        this.year = year;
+    }
 
-    ArrayList<String> writer;
+    protected String getRated()
+    {
+        return rated;
+    }
 
-    ArrayList<String> mainActors;
+    protected void setRated(String rated)
+    {
+        this.rated = rated;
+    }
 
-    ArrayList<String> languages;
+    protected String getReleaseDate()
+    {
+        return releaseDate;
+    }
 
-    ArrayList<String> countries;
+    protected void setReleaseDate(String releaseDate)
+    {
+        this.releaseDate = releaseDate;
+    }
 
-    ArrayList<String> oscars;
+    protected int getRuntime()
+    {
+        return runtime;
+    }
 
-    int metascore;
+    protected void setRuntime(int runtime)
+    {
+        this.runtime = runtime;
+    }
 
-    int imdbRating;
+    protected int getMetascore()
+    {
+        return metascore;
+    }
 
-    int imdbVotes;
+    protected void setMetascore(int metascore)
+    {
+        this.metascore = metascore;
+    }
 
-    String type;
+    protected int getImdbRating()
+    {
+        return imdbRating;
+    }
+
+    protected void setImdbRating(int imdbRating)
+    {
+        this.imdbRating = imdbRating;
+    }
+
+    protected int getImdbVotes()
+    {
+        return imdbVotes;
+    }
+
+    protected void setImdbVotes(int imdbVotes)
+    {
+        this.imdbVotes = imdbVotes;
+    }
+
+    protected String getType()
+    {
+        return type;
+    }
+
+    protected void setType(String type)
+    {
+        this.type = type;
+    }
+
+    Movie(JsonObject jsonObject)
+    {
+        this.metascore = Integer.getInteger(jsonObject.get("metascore").toString());
+
+        this.imdbRating = Integer.getInteger(jsonObject.get("imdbRating").toString());
+
+        this.imdbVotes = Integer.getInteger(jsonObject.get("imdbVotes").toString());
+
+        this.type = jsonObject.get("type").toString();
+
+        this.title = jsonObject.get("title").toString();
+
+        this.year = Integer.getInteger(jsonObject.get("year").toString());;
+
+        this.rated = jsonObject.get("rated").toString();
+    }
+
+
+
+
+   /* private ArrayList<String> genre;
+
+    private ArrayList<String> director;
+
+    private ArrayList<String> writer;
+
+    private ArrayList<String> mainActors;
+
+    private ArrayList<String> languages;
+
+    private ArrayList<String> countries;
+
+    private ArrayList<String> oscars;*/
+
+
+
+
+
+
 }

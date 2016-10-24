@@ -1,3 +1,4 @@
+import javax.json.JsonValue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,6 +7,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Tools
 {
@@ -45,4 +49,17 @@ public class Tools
 
         return encodedUrl;
     }
+
+    static List<String> parseMultivaluedJsonKey(JsonValue jsonKey)
+    {
+        String jsonKeyString = jsonKey.toString();
+
+        jsonKeyString = jsonKeyString.replace("\"", "");
+
+        List<String> items = Arrays.asList(jsonKeyString.split("\\s*,\\s*"));
+
+        return items;
+    }
+
+
 }
