@@ -1,5 +1,5 @@
 import javax.json.JsonObject;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Movie
 {
@@ -7,19 +7,19 @@ public class Movie
 
     private int runtime;
 
-    private ArrayList<String> genre;
+    private List<String> genre;
 
-    private ArrayList<String> director;
+    private List<String> director;
 
-    private ArrayList<String> writer;
+    private List<String> writer;
 
-    private ArrayList<String> mainActors;
+    private List<String> mainActors;
 
-    private ArrayList<String> languages;
+    private List<String> languages;
 
-    private ArrayList<String> countries;
+    private List<String> countries;
 
-    private ArrayList<String> oscars;
+    private List<String> oscars;
 
     private int metascore;
 
@@ -125,43 +125,28 @@ public class Movie
         this.type = type;
     }
 
-    Movie(JsonObject jsonObject)
+    protected Movie(JsonObject jsonObject)
     {
-        this.metascore = Integer.getInteger(jsonObject.get("metascore").toString());
+        this.title = jsonObject.getString("Title").toString();
 
-        this.imdbRating = Integer.getInteger(jsonObject.get("imdbRating").toString());
+        this.year = Integer.valueOf(jsonObject.getString("Year").toString());
 
-        this.imdbVotes = Integer.getInteger(jsonObject.get("imdbVotes").toString());
+        this.rated =  jsonObject.getString("Rated").toString();
 
-        this.type = jsonObject.get("type").toString();
+        this.releaseDate =  jsonObject.getString("Released").toString();
 
-        this.title = jsonObject.get("title").toString();
+        this.runtime =  Integer.valueOf(Tools.processRuntime(jsonObject.getString("Runtime").toString()));
 
-        this.year = Integer.getInteger(jsonObject.get("year").toString());;
+        this.metascore = Integer.valueOf(jsonObject.getString("Metascore").toString());
 
-        this.rated = jsonObject.get("rated").toString();
+        this.imdbRating =Integer.valueOf(Tools.removeDot(jsonObject.getString("imdbRating").toString()));
+
+        this.imdbVotes = Integer.valueOf(Tools.removeComma(jsonObject.getString("imdbVotes").toString()));
+
+        this.type = jsonObject.getString("Type").toString();
+
+        this.rated = jsonObject.getString("Rated").toString();
     }
-
-
-
-
-   /* private ArrayList<String> genre;
-
-    private ArrayList<String> director;
-
-    private ArrayList<String> writer;
-
-    private ArrayList<String> mainActors;
-
-    private ArrayList<String> languages;
-
-    private ArrayList<String> countries;
-
-    private ArrayList<String> oscars;*/
-
-
-
-
 
 
 }

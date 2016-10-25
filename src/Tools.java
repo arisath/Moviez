@@ -50,11 +50,39 @@ public class Tools
         return encodedUrl;
     }
 
+    static String removeQuotes(String jsonValue)
+    {
+        jsonValue = jsonValue.replace("\"", "");
+
+        return jsonValue;
+    }
+
+    static String removeComma(String jsonValue)
+    {
+        jsonValue = jsonValue.replace(",", "");
+
+        return jsonValue;
+    }
+
+    static String removeDot(String jsonValue)
+    {
+        jsonValue = jsonValue.replace(".", "");
+
+        return jsonValue;
+    }
+
+    static String processRuntime(String runtime)
+    {
+        runtime = runtime.substring(0, 2);
+
+        return runtime;
+    }
+
     static List<String> parseMultivaluedJsonKey(JsonValue jsonKey)
     {
         String jsonKeyString = jsonKey.toString();
 
-        jsonKeyString = jsonKeyString.replace("\"", "");
+        jsonKeyString = removeQuotes(jsonKeyString);
 
         List<String> items = Arrays.asList(jsonKeyString.split("\\s*,\\s*"));
 
