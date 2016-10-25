@@ -127,25 +127,41 @@ public class Movie
 
     protected Movie(JsonObject jsonObject)
     {
-        this.title = jsonObject.getString("Title").toString();
+        this.title = jsonObject.getString("Title");
 
-        this.year = Integer.valueOf(jsonObject.getString("Year").toString());
+        this.year = Integer.valueOf(Tools.processYear(jsonObject.getString("Year")));
 
-        this.rated =  jsonObject.getString("Rated").toString();
+        this.rated = Tools.checkNA(jsonObject.getString("Rated"));
 
-        this.releaseDate =  jsonObject.getString("Released").toString();
+        this.releaseDate = Tools.checkNA(jsonObject.getString("Released"));
 
-        this.runtime =  Integer.valueOf(Tools.processRuntime(jsonObject.getString("Runtime").toString()));
+        this.runtime = Integer.valueOf(Tools.processRuntime(jsonObject.getString("Runtime")));
 
-        this.metascore = Integer.valueOf(jsonObject.getString("Metascore").toString());
+        this.metascore = Integer.valueOf(Tools.checkNA(jsonObject.getString("Metascore")));
 
-        this.imdbRating =Integer.valueOf(Tools.removeDot(jsonObject.getString("imdbRating").toString()));
+        this.imdbRating = Integer.valueOf(Tools.removeDot(Tools.checkNA(jsonObject.getString("imdbRating"))));
 
-        this.imdbVotes = Integer.valueOf(Tools.removeComma(jsonObject.getString("imdbVotes").toString()));
+        this.imdbVotes = Integer.valueOf(Tools.removeComma(Tools.checkNA(jsonObject.getString("imdbVotes"))));
 
-        this.type = jsonObject.getString("Type").toString();
+        this.type = Tools.checkNA(jsonObject.getString("Type"));
 
-        this.rated = jsonObject.getString("Rated").toString();
+        this.rated = Tools.checkNA(jsonObject.getString("Rated"));
+
+        this.genre = Tools.parseMultivaluedJsonKey(jsonObject.getString("Genre"));
+
+        this.director = Tools.parseMultivaluedJsonKey(jsonObject.getString("Director"));
+
+        this.writer = Tools.parseMultivaluedJsonKey(jsonObject.getString("Writer"));
+
+        this.mainActors = Tools.parseMultivaluedJsonKey(jsonObject.getString("Actors"));
+
+        this.languages = Tools.parseMultivaluedJsonKey(jsonObject.getString("Language"));
+
+        this.countries = Tools.parseMultivaluedJsonKey(jsonObject.getString("Country").toString());
+
+
+
+
     }
 
 

@@ -1,21 +1,22 @@
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.JsonValue;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Tools
 {
     static final String omdbapi = "http://www.omdbapi.com/?t=";
 
-    static String getMovieJson(String movieTitle)
+    static Movie createMovieEntry(String movieTitle)
     {
         try
         {
@@ -25,22 +26,29 @@ public class Tools
 
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
-            String inputLine;
-
-            inputLine = in.readLine();
+            String inputLine = in.readLine();
+            ;
 
             in.close();
 
-            return inputLine;
+            JsonReader jsonReader = Json.createReader(new StringReader(inputLine));
+
+            JsonObject jsonObject = jsonReader.readObject();
+
+            Movie movie = new Movie(jsonObject);
+
+            return movie;
         }
         catch (MalformedURLException malforedUrlException)
         {
-            return ("The provided URL is malformed");
+            System.out.println("The provided URL is malformed");
         }
         catch (IOException malforedUrlException)
         {
-            return ("The provided URL is not valid");
+            System.out.println("The provided URL is not valid");
         }
+
+        return null;
     }
 
     static String encodeURL(String s) throws UnsupportedEncodingException
@@ -73,21 +81,65 @@ public class Tools
 
     static String processRuntime(String runtime)
     {
+        if (runtime.equalsIgnoreCase("N/A"))
+        {
+            return ("0");
+        }
+
         runtime = runtime.substring(0, 2);
 
         return runtime;
     }
 
-    static List<String> parseMultivaluedJsonKey(JsonValue jsonKey)
+    static String processYear(String year)
     {
-        String jsonKeyString = jsonKey.toString();
+        if (year.equalsIgnoreCase("N/A"))
+        {
+            return ("0");
+        }
 
-        jsonKeyString = removeQuotes(jsonKeyString);
+        return year.substring(0,4);
+    }
 
-        List<String> items = Arrays.asList(jsonKeyString.split("\\s*,\\s*"));
+
+
+    static String checkNA(String string)
+    {
+        if (string.equalsIgnoreCase("N/A"))
+        {
+            return ("0");
+        }
+
+        return string;
+    }
+
+
+    static List<String> parseMultivaluedJsonKey(String jsonKey)
+    {
+        List<String> items = new ArrayList<String>();
+
+        if (jsonKey.equalsIgnoreCase("N/A"))
+        {
+            items.add("N/A");
+
+            return items;
+        }
+
+        jsonKey = removeQuotes(jsonKey);
+
+        items = Arrays.asList(jsonKey.split("\\s*,\\s*"));
 
         return items;
     }
 
 
+    static String findHighestRatedMoviePeople(List<String> movieRatingsPeople)
+    {
+        return Collections.max(movieRatingsPeople);
+    }
+
+    //  static String findHighestRatedMoviePeople()
+    // {
+
+    // }
 }
