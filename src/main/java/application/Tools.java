@@ -15,20 +15,19 @@ import java.util.List;
 
 public class Tools
 {
-    static final String omdbapi = "http://www.omdbapi.com/?t=";
+    static final String OMDB_API_BASE_URL = "http://www.omdbapi.com/?t=";
 
     static Movie createMovieEntry(String movieTitle)
     {
         try
         {
-            URL url = new URL(omdbapi + encodeURL(movieTitle) + "&y=&plot=short&r=json");
+            URL url = new URL( OMDB_API_BASE_URL + encodeURL(movieTitle) + "&y=&plot=short&r=json");
 
             URLConnection urlConnection = url.openConnection();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
             String inputLine = in.readLine();
-            ;
 
             in.close();
 
