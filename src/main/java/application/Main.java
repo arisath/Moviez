@@ -1,4 +1,4 @@
-
+package src.main.java.application;
 
 public class Main
 {
@@ -12,7 +12,6 @@ public class Main
         Movie transformers = Tools.createMovieEntry("Transformers");
         Movie thePrestige = Tools.createMovieEntry("The Prestige");
         Movie gameOfThrones = Tools.createMovieEntry("Game of Thrones");
-
 
         System.out.println();
     }
