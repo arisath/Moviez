@@ -13,7 +13,6 @@ public class Main
         Movie thePrestige = Tools.createMovieEntry("The Prestige");
         Movie gameOfThrones = Tools.createMovieEntry("Game of Thrones");
 
-
         System.out.println();
     }
 }
