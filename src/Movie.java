@@ -159,9 +159,6 @@ public class Movie
 
         this.countries = Tools.parseMultivaluedJsonKey(jsonObject.getString("Country").toString());
 
-
-
-
     }
 
 

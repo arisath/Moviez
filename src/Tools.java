@@ -1,7 +1,6 @@
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonValue;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,6 +15,41 @@ public class Tools
 {
     static final String omdbapi = "http://www.omdbapi.com/?t=";
 
+    static List<Movie> readMovieList(String filename)
+    {
+        try
+        {
+            ArrayList<Movie> moviesList = new ArrayList<Movie>();
+
+            FileReader input = new FileReader(filename);
+
+            BufferedReader br = new BufferedReader(input);
+
+            String line;
+
+            while ((line = br.readLine()) != null)
+            {
+                Movie movie = Tools.createMovieEntry(line);
+
+                moviesList.add(movie);
+            }
+
+            br.close();
+
+            return moviesList;
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File " + filename + " not found");
+        }
+        catch (IOException e)
+        {
+            System.out.println("IO Exception");
+        }
+
+        return null;
+    }
+
     static Movie createMovieEntry(String movieTitle)
     {
         try
@@ -27,7 +61,6 @@ public class Tools
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
             String inputLine = in.readLine();
-            ;
 
             in.close();
 
@@ -98,10 +131,8 @@ public class Tools
             return ("0");
         }
 
-        return year.substring(0,4);
+        return year.substring(0, 4);
     }
-
-
 
     static String checkNA(String string)
     {
@@ -112,7 +143,6 @@ public class Tools
 
         return string;
     }
-
 
     static List<String> parseMultivaluedJsonKey(String jsonKey)
     {
@@ -138,8 +168,4 @@ public class Tools
         return Collections.max(movieRatingsPeople);
     }
 
-    //  static String findHighestRatedMoviePeople()
-    // {
-
-    // }
 }
