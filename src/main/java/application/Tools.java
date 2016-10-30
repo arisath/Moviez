@@ -29,7 +29,7 @@ public class Tools
 
             while ((line = br.readLine()) != null)
             {
-                Movie movie = Tools.createMovieEntry(line);
+                Movie movie = Tools.createMovieEntry(line.trim());
 
                 moviesList.add(movie);
             }
@@ -163,9 +163,56 @@ public class Tools
     }
 
 
-    static String findHighestRatedMoviePeople(List<String> movieRatingsPeople)
+    static Movie findHighestRatedMovie(List<Movie> moviesList)
     {
-        return Collections.max(movieRatingsPeople);
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie highestRatedMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getImdbRating() > highestRatedMovie.getImdbRating())
+            {
+                highestRatedMovie = moviesList.get(i);
+            }
+        }
+
+        return highestRatedMovie;
+    }
+
+    static Movie findHighestMetascore(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie highestMetascoreMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getMetascore() > highestMetascoreMovie.getMetascore())
+            {
+                highestMetascoreMovie = moviesList.get(i);
+            }
+        }
+
+        return highestMetascoreMovie;
     }
 
 }

@@ -1,4 +1,5 @@
 import javax.json.JsonObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie
@@ -125,9 +126,46 @@ public class Movie
         this.type = type;
     }
 
+    protected Movie()
+    {
+        this.title = "";
+
+        this.year = 0;
+
+        this.rated = "";
+
+        this.releaseDate = "";
+
+        this.runtime = 0;
+
+        this.metascore = 0;
+
+        this.imdbRating = 0;
+
+        this.imdbVotes = 0;
+
+        this.type = "";
+
+        this.rated = "";
+
+        this.genre = new ArrayList<String>();
+
+        this.director = new ArrayList<String>();
+
+        this.writer = new ArrayList<String>();
+
+        this.mainActors = new ArrayList<String>();
+
+        this.languages = new ArrayList<String>();
+
+        this.countries = new ArrayList<String>();
+    }
+
     protected Movie(JsonObject jsonObject)
     {
         this.title = jsonObject.getString("Title");
+
+        System.out.println(this.title);
 
         this.year = Integer.valueOf(Tools.processYear(jsonObject.getString("Year")));
 
