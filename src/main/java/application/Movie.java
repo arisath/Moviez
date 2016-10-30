@@ -165,8 +165,6 @@ public class Movie
     {
         this.title = jsonObject.getString("Title");
 
-        System.out.println(this.title);
-
         this.year = Integer.valueOf(Tools.processYear(jsonObject.getString("Year")));
 
         this.rated = Tools.checkNA(jsonObject.getString("Rated"));

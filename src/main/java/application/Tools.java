@@ -119,7 +119,7 @@ public class Tools
             return ("0");
         }
 
-        runtime = runtime.substring(0, 2);
+        runtime = runtime.substring(0, 3).trim();
 
         return runtime;
     }
@@ -162,7 +162,6 @@ public class Tools
         return items;
     }
 
-
     static Movie findHighestRatedMovie(List<Movie> moviesList)
     {
         if (moviesList.size() == 0)
@@ -189,6 +188,32 @@ public class Tools
         return highestRatedMovie;
     }
 
+    static Movie findLowestRatedMovie(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie lowestRatedMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getImdbRating() < lowestRatedMovie.getImdbRating())
+            {
+                lowestRatedMovie = moviesList.get(i);
+            }
+        }
+
+        return lowestRatedMovie;
+    }
+
     static Movie findHighestMetascore(List<Movie> moviesList)
     {
         if (moviesList.size() == 0)
@@ -213,6 +238,141 @@ public class Tools
         }
 
         return highestMetascoreMovie;
+    }
+
+    static Movie findLowestMetascore(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie lowestMetascoreMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getMetascore() < lowestMetascoreMovie.getMetascore())
+            {
+                lowestMetascoreMovie = moviesList.get(i);
+            }
+        }
+
+        return lowestMetascoreMovie;
+    }
+
+    static Movie findOldestMovie(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie oldestMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getYear() < oldestMovie.getYear())
+            {
+                oldestMovie = moviesList.get(i);
+            }
+        }
+
+        return oldestMovie;
+    }
+
+    static Movie findMostRecentMovie(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie mostRecentMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getYear() > mostRecentMovie.getYear())
+            {
+                mostRecentMovie = moviesList.get(i);
+            }
+        }
+
+        return mostRecentMovie;
+    }
+
+    static Movie findLongestMovie(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie longestMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getRuntime() > longestMovie.getRuntime())
+            {
+                longestMovie = moviesList.get(i);
+            }
+        }
+
+        return longestMovie;
+    }
+
+    static Movie findShortestMovie(List<Movie> moviesList)
+    {
+        if (moviesList.size() == 0)
+        {
+            System.out.println("Given List is Empty");
+
+            return null;
+        }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
+
+        Movie shortestMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if ( (moviesList.get(i).getRuntime() == 0) || (moviesList.get(i).getRuntime()<35) )
+            {
+                continue;
+            }
+
+            if (moviesList.get(i).getRuntime() < shortestMovie.getRuntime())
+            {
+                shortestMovie = moviesList.get(i);
+            }
+        }
+
+        return shortestMovie;
     }
 
 }
