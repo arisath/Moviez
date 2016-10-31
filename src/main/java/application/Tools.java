@@ -136,12 +136,7 @@ public class Tools
 
     static String checkNA(String string)
     {
-        if (string.equalsIgnoreCase("N/A"))
-        {
-            return ("0");
-        }
-
-        return string;
+       return string.equalsIgnoreCase("N/A") ? "0" : string;
     }
 
     static List<String> parseMultivaluedJsonKey(String jsonKey)
