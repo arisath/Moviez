@@ -159,7 +159,7 @@ public class Tools
 
     static Movie findHighestRatedMovie(List<Movie> moviesList)
     {
-       if(moviesList.isEmpty() || moviesList == null){
+       if(moviesList == null || moviesList.isEmpty()){
            System.out.println("Given List is Empty");
            return null;
        }
