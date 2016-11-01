@@ -172,26 +172,12 @@ public class Tools
 
     static Movie findLowestRatedMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
-        {
+        if(moviesList == null || moviesList.isEmpty()){
             System.out.println("Given List is Empty");
-
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie lowestRatedMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getImdbRating() < lowestRatedMovie.getImdbRating())
-            {
-                lowestRatedMovie = moviesList.get(i);
-            }
-        }
+        Movie  lowestRatedMovie = Collections.min(moviesList, Comparator.comparingInt(movie->movie.getImdbRating()));
 
         return lowestRatedMovie;
     }
