@@ -6,10 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Tools
 {
@@ -136,7 +133,7 @@ public class Tools
 
     static String checkNA(String string)
     {
-       return string.equalsIgnoreCase("N/A") ? "0" : string;
+        return string.equalsIgnoreCase("N/A") ? "0" : string;
     }
 
     static List<String> parseMultivaluedJsonKey(String jsonKey)
@@ -159,162 +156,106 @@ public class Tools
 
     static Movie findHighestRatedMovie(List<Movie> moviesList)
     {
-       if(moviesList == null || moviesList.isEmpty()){
-           System.out.println("Given List is Empty");
-           return null;
-       }
+        if (moviesList == null || moviesList.isEmpty())
+        {
+            System.out.println("Given List is Empty");
 
-       Movie  highestRatedMovie = Collections.max(moviesList, Comparator.comparingInt(movie->movie.getImdbRating()));
+            return null;
+        }
 
-       return highestRatedMovie;
+        Movie highestRatedMovie = Collections.max(moviesList, Comparator.comparingInt(movie -> movie.getImdbRating()));
+
+        return highestRatedMovie;
 
     }
 
     static Movie findLowestRatedMovie(List<Movie> moviesList)
     {
-        if(moviesList == null || moviesList.isEmpty()){
+        if (moviesList == null || moviesList.isEmpty())
+        {
             System.out.println("Given List is Empty");
+
             return null;
         }
 
-        Movie  lowestRatedMovie = Collections.min(moviesList, Comparator.comparingInt(movie->movie.getImdbRating()));
+        Movie lowestRatedMovie = Collections.min(moviesList, Comparator.comparingInt(movie -> movie.getImdbRating()));
 
         return lowestRatedMovie;
     }
 
     static Movie findHighestMetascore(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie highestMetascoreMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getMetascore() > highestMetascoreMovie.getMetascore())
-            {
-                highestMetascoreMovie = moviesList.get(i);
-            }
-        }
+        Movie highestMetascoreMovie = Collections.max(moviesList, Comparator.comparingInt(movie -> movie.getMetascore()));
 
         return highestMetascoreMovie;
     }
 
     static Movie findLowestMetascore(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie lowestMetascoreMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getMetascore() < lowestMetascoreMovie.getMetascore())
-            {
-                lowestMetascoreMovie = moviesList.get(i);
-            }
-        }
+        Movie lowestMetascoreMovie = Collections.min(moviesList, Comparator.comparingInt(movie -> movie.getMetascore()));
 
         return lowestMetascoreMovie;
     }
 
     static Movie findOldestMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie oldestMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getYear() < oldestMovie.getYear())
-            {
-                oldestMovie = moviesList.get(i);
-            }
-        }
+        Movie oldestMovie = Collections.min(moviesList, Comparator.comparingInt(movie -> movie.getYear()));
 
         return oldestMovie;
     }
 
     static Movie findMostRecentMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie mostRecentMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getYear() > mostRecentMovie.getYear())
-            {
-                mostRecentMovie = moviesList.get(i);
-            }
-        }
+        Movie mostRecentMovie = Collections.max(moviesList, Comparator.comparingInt(movie -> movie.getYear()));
 
         return mostRecentMovie;
     }
 
     static Movie findLongestMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie longestMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getRuntime() > longestMovie.getRuntime())
-            {
-                longestMovie = moviesList.get(i);
-            }
-        }
+        Movie longestMovie = Collections.max(moviesList, Comparator.comparingInt(movie -> movie.getRuntime()));
 
         return longestMovie;
     }
 
     static Movie findShortestMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
             System.out.println("Given List is Empty");
 
@@ -329,7 +270,7 @@ public class Tools
 
         for (int i = 1; i < moviesList.size(); i++)
         {
-            if ( (moviesList.get(i).getRuntime() == 0) || (moviesList.get(i).getRuntime()<35) )
+            if ((moviesList.get(i).getRuntime() == 0) || (moviesList.get(i).getRuntime() < 35))
             {
                 continue;
             }
