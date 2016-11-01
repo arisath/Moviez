@@ -159,28 +159,15 @@ public class Tools
 
     static Movie findHighestRatedMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0)
-        {
-            System.out.println("Given List is Empty");
+       if(moviesList.isEmpty() || moviesList == null){
+           System.out.println("Given List is Empty");
+           return null;
+       }
 
-            return null;
-        }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
+       Movie  highestRatedMovie = Collections.max(moviesList, Comparator.comparingInt(movie->movie.getImdbRating()));
 
-        Movie highestRatedMovie = moviesList.get(0);
+       return highestRatedMovie;
 
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if (moviesList.get(i).getImdbRating() > highestRatedMovie.getImdbRating())
-            {
-                highestRatedMovie = moviesList.get(i);
-            }
-        }
-
-        return highestRatedMovie;
     }
 
     static Movie findLowestRatedMovie(List<Movie> moviesList)
