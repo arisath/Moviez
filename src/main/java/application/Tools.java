@@ -260,7 +260,8 @@ public class Tools
             return null;
         }
 
-        Movie shortestMovie =  moviesList.stream()
+        Movie shortestMovie =  moviesList
+                               .stream()
                                .filter(movie -> movie.getRuntime() > 35)
                                .min((movie1, movie2) -> Integer.compare(movie1.getRuntime(), movie2.getRuntime()))
                                .get();
