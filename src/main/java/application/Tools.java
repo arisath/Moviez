@@ -255,31 +255,14 @@ public class Tools
 
     static Movie findShortestMovie(List<Movie> moviesList)
     {
-        if (moviesList.size() == 0 || moviesList.isEmpty())
+        if(moviesList == null || moviesList.isEmpty())
         {
-            System.out.println("Given List is Empty");
-
             return null;
         }
-        else if (moviesList.size() == 1)
-        {
-            return moviesList.get(1);
-        }
 
-        Movie shortestMovie = moviesList.get(0);
-
-        for (int i = 1; i < moviesList.size(); i++)
-        {
-            if ((moviesList.get(i).getRuntime() == 0) || (moviesList.get(i).getRuntime() < 35))
-            {
-                continue;
-            }
-
-            if (moviesList.get(i).getRuntime() < shortestMovie.getRuntime())
-            {
-                shortestMovie = moviesList.get(i);
-            }
-        }
+        Movie shortestMovie =  moviesList.stream()
+                .filter(movie -> movie.getRuntime() > 35)
+                .min((movie1, movie2) -> Integer.compare(movie1.getRuntime(), movie2.getRuntime()))
 
         return shortestMovie;
     }
