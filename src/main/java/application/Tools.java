@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Tools
@@ -177,8 +179,20 @@ public class Tools
 
             return null;
         }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
 
-        Movie lowestRatedMovie = Collections.min(moviesList, Comparator.comparingInt(movie -> movie.getImdbRating()));
+        Movie lowestRatedMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if (moviesList.get(i).getImdbRating() < lowestRatedMovie.getImdbRating())
+            {
+                lowestRatedMovie = moviesList.get(i);
+            }
+        }
 
         return lowestRatedMovie;
     }
@@ -255,18 +269,81 @@ public class Tools
 
     static Movie findShortestMovie(List<Movie> moviesList)
     {
-        if(moviesList == null || moviesList.isEmpty())
+        if (moviesList.size() == 0 || moviesList.isEmpty())
         {
+            System.out.println("Given List is Empty");
+
             return null;
         }
+        else if (moviesList.size() == 1)
+        {
+            return moviesList.get(1);
+        }
 
-        Movie shortestMovie =  moviesList
-                               .stream()
-                               .filter(movie -> movie.getRuntime() > 35)
-                               .min((movie1, movie2) -> Integer.compare(movie1.getRuntime(), movie2.getRuntime()))
-                               .get();
+        Movie shortestMovie = moviesList.get(0);
+
+        for (int i = 1; i < moviesList.size(); i++)
+        {
+            if ((moviesList.get(i).getRuntime() == 0) || (moviesList.get(i).getRuntime() < 35))
+            {
+                continue;
+            }
+
+            if (moviesList.get(i).getRuntime() < shortestMovie.getRuntime())
+            {
+                shortestMovie = moviesList.get(i);
+            }
+        }
 
         return shortestMovie;
     }
+
+    static void downloadMoviePoster(Movie movie)
+    {
+        try
+        {
+            Files.createDirectories(Paths.get("posters"));
+
+            String posterURLString = movie.getPosterURL();
+
+            if (posterURLString.equalsIgnoreCase("0"))
+            {
+                throw new MalformedURLException();
+            }
+
+            URL posterURL = new URL(movie.getPosterURL());
+
+            InputStream in = posterURL.openStream();
+
+            Files.copy(in, Paths.get("posters/"+movie.getTitle().replaceAll("[^a-zA-Z0-9.-]", " ") + ".jpg"));
+
+        }
+        catch (MalformedURLException malformedURLException)
+        {
+            System.out.println("The URL of the " + movie.getTitle() + " does not exist or is malforned");
+        }
+        catch (IOException ioException)
+        {
+            System.out.println("Poster for " + movie.getTitle()+" already exists");
+        }
+    }
+
+    static void downloadMoviesPosters(List<Movie> movieList)
+    {
+        try
+        {
+            Files.createDirectories(Paths.get("posters"));
+
+            for(Movie movie : movieList)
+            {
+                downloadMoviePoster(movie);
+            }
+        }
+        catch (IOException ioException)
+        {
+            System.out.println("Could not create directory");
+        }
+
+        }
 
 }
