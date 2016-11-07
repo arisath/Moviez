@@ -315,7 +315,7 @@ public class Tools
 
             InputStream in = posterURL.openStream();
 
-            Files.copy(in, Paths.get("posters/"+movie.getTitle().replaceAll("[^a-zA-Z0-9.-]", " ") + ".jpg"));
+            Files.copy(in, Paths.get("posters/" + movie.getTitle().replaceAll("[^a-zA-Z0-9.-]", " ") + ".jpg"));
 
         }
         catch (MalformedURLException malformedURLException)
@@ -324,7 +324,7 @@ public class Tools
         }
         catch (IOException ioException)
         {
-            System.out.println("Poster for " + movie.getTitle()+" already exists");
+            System.out.println("Poster for " + movie.getTitle() + " already exists");
         }
     }
 
@@ -334,7 +334,7 @@ public class Tools
         {
             Files.createDirectories(Paths.get("posters"));
 
-            for(Movie movie : movieList)
+            for (Movie movie : movieList)
             {
                 downloadMoviePoster(movie);
             }
@@ -344,6 +344,71 @@ public class Tools
             System.out.println("Could not create directory");
         }
 
+    }
+
+    static TreeMap<String, Integer> findFavouriteActors(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> actorsHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addActorsToHashMap(movie, actorsHashMap);
         }
 
+        return SortByValue(actorsHashMap);
+    }
+
+    static void addActorsToHashMap(Movie movie, TreeMap<String, Integer> actorsHashMap)
+    {
+        List<String> mainActors = movie.getMainActors();
+
+        for (String actor : mainActors)
+        {
+            if (!actorsHashMap.containsKey(actor))
+            {
+                actorsHashMap.put(actor, 1);
+            }
+            else
+            {
+                int value = actorsHashMap.get(actor);
+
+                actorsHashMap.put(actor, value + 1);
+            }
+        }
+    }
+
+    public static TreeMap<String, Integer> SortByValue(TreeMap<String, Integer> map)
+    {
+        TreeMap<String, Integer> sortedMap = new TreeMap<String, Integer>(new ValueComparator(map));
+
+        sortedMap.putAll(map);
+
+        return sortedMap;
+    }
+
 }
+
+    class ValueComparator implements Comparator<String>
+    {
+        Map<String, Integer> map;
+
+        public ValueComparator(Map<String, Integer> base)
+        {
+            this.map = base;
+        }
+
+        public int compare(String a, String b)
+        {
+
+            if (map.get(a) >= map.get(b))
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
+
