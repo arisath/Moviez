@@ -12,7 +12,7 @@ public class Movie
 
     private List<String> director;
 
-    private List<String> writer;
+    private List<String> writers;
 
     private List<String> mainActors;
 
@@ -35,6 +35,18 @@ public class Movie
     private int year;
 
     private String rated;
+
+    public String getPosterURL()
+    {
+        return posterURL;
+    }
+
+    public void setPosterURL(String posterURL)
+    {
+        this.posterURL = posterURL;
+    }
+
+    private String posterURL;
 
     protected String getTitle()
     {
@@ -126,6 +138,19 @@ public class Movie
         this.type = type;
     }
 
+    protected List<String> getMainActors(){return this.mainActors;}
+
+    protected List<String> getDirectors(){return this.director;}
+
+    protected List<String> getGenre(){return this.genre;}
+
+    protected List<String> getCountries(){return this.countries;}
+
+    protected List<String> getWriters(){return this.writers;}
+
+    protected List<String> getLanguages(){return this.languages;}
+
+
     protected Movie()
     {
         this.title = "";
@@ -152,7 +177,7 @@ public class Movie
 
         this.director = new ArrayList<String>();
 
-        this.writer = new ArrayList<String>();
+        this.writers = new ArrayList<String>();
 
         this.mainActors = new ArrayList<String>();
 
@@ -187,13 +212,15 @@ public class Movie
 
         this.director = Tools.parseMultivaluedJsonKey(jsonObject.getString("Director"));
 
-        this.writer = Tools.parseMultivaluedJsonKey(jsonObject.getString("Writer"));
+        this.writers = Tools.parseMultivaluedJsonKey(jsonObject.getString("Writer"));
 
         this.mainActors = Tools.parseMultivaluedJsonKey(jsonObject.getString("Actors"));
 
         this.languages = Tools.parseMultivaluedJsonKey(jsonObject.getString("Language"));
 
         this.countries = Tools.parseMultivaluedJsonKey(jsonObject.getString("Country").toString());
+
+        this.posterURL = Tools.checkNA(jsonObject.getString("Poster"));
 
     }
 

@@ -346,7 +346,7 @@ public class Tools
 
     }
 
-    static TreeMap<String, Integer> findFavouriteActors(List<Movie> movieList)
+    static TreeMap<String, Integer> findActorsWithMostAppearances(List<Movie> movieList)
     {
         TreeMap<String, Integer> actorsHashMap = new TreeMap<>();
 
@@ -373,6 +373,171 @@ public class Tools
                 int value = actorsHashMap.get(actor);
 
                 actorsHashMap.put(actor, value + 1);
+            }
+        }
+    }
+
+    static TreeMap<String, Integer> findDirectorsWithMostAppearances(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> directorsHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addDirectorsToHashMap(movie, directorsHashMap);
+        }
+
+        return SortByValue(directorsHashMap);
+    }
+
+    static void addDirectorsToHashMap(Movie movie, TreeMap<String, Integer>directorsHashMap)
+    {
+        List<String> directors = movie.getDirectors();
+
+        directors.removeAll(Collections.singleton("N/A"));
+
+        for (String director : directors)
+        {
+            if (!directorsHashMap.containsKey(director))
+            {
+                directorsHashMap.put(director, 1);
+            }
+            else
+            {
+                int value = directorsHashMap.get(director);
+
+                directorsHashMap.put(director, value + 1);
+            }
+        }
+    }
+
+    static TreeMap<String, Integer> findGenresWithMostAppearances(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> genresHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addGenresToHashMap(movie, genresHashMap);
+        }
+
+        return SortByValue(genresHashMap);
+    }
+
+    static void addGenresToHashMap(Movie movie, TreeMap<String, Integer>genresHashMap)
+    {
+        List<String> genres = movie.getGenre();
+
+        genres.removeAll(Collections.singleton("N/A"));
+
+        for (String genre : genres)
+        {
+            if (!genresHashMap.containsKey(genre))
+            {
+                genresHashMap.put(genre, 1);
+            }
+            else
+            {
+                int value = genresHashMap.get(genre);
+
+                genresHashMap.put(genre, value + 1);
+            }
+        }
+    }
+
+    static TreeMap<String, Integer> findCountriesWithMostAppearances(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> countriesHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addCountriesToHashMap(movie, countriesHashMap);
+        }
+
+        return SortByValue(countriesHashMap);
+    }
+
+    static void addCountriesToHashMap(Movie movie, TreeMap<String, Integer>countriesHashMap)
+    {
+        List<String> countries = movie.getCountries();
+
+        countries.removeAll(Collections.singleton("N/A"));
+
+        for (String country : countries)
+        {
+            if (!countriesHashMap.containsKey(country))
+            {
+                countriesHashMap.put(country, 1);
+            }
+            else
+            {
+                int value = countriesHashMap.get(country);
+
+                countriesHashMap.put(country, value + 1);
+            }
+        }
+    }
+
+    static TreeMap<String, Integer> findWritersWithMostAppearances(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> writersHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addWritersToHashMap(movie, writersHashMap);
+        }
+
+        return SortByValue(writersHashMap);
+    }
+
+    static void addWritersToHashMap(Movie movie, TreeMap<String, Integer>writersHashMap)
+    {
+        List<String> writers = movie.getWriters();
+
+        writers.removeAll(Collections.singleton("N/A"));
+
+        for (String writer : writers)
+        {
+            if (!writersHashMap.containsKey(writer))
+            {
+                writersHashMap.put(writer, 1);
+            }
+            else
+            {
+                int value = writersHashMap.get(writer);
+
+                writersHashMap.put(writer, value + 1);
+            }
+        }
+    }
+
+    static TreeMap<String, Integer> findLanguagesWithMostAppearances(List<Movie> movieList)
+    {
+        TreeMap<String, Integer> languagesHashMap = new TreeMap<>();
+
+        for (Movie movie : movieList)
+        {
+            addLanguagesToHashMap(movie, languagesHashMap);
+        }
+
+        return SortByValue(languagesHashMap);
+    }
+
+    static void addLanguagesToHashMap(Movie movie, TreeMap<String, Integer>writersHashMap)
+    {
+        List<String> languages = movie.getLanguages();
+
+        languages.removeAll(Collections.singleton("N/A"));
+
+        for (String language : languages)
+        {
+            if (!writersHashMap.containsKey(language))
+            {
+                writersHashMap.put(language, 1);
+            }
+            else
+            {
+                int value = writersHashMap.get(language);
+
+                writersHashMap.put(language, value + 1);
             }
         }
     }
